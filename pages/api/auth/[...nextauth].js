@@ -1,5 +1,6 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google"; // add this import
 import { custom } from 'openid-client';
 
 custom.setHttpOptionsDefaults({
@@ -30,6 +31,10 @@ export default NextAuth({
         	}
     	}
   	}),
+  GoogleProvider({
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
+    }),
   ],
   session: {
   	strategy: 'jwt'

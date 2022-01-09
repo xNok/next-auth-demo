@@ -1,20 +1,29 @@
-import { useSession, signIn, signOut } from "next-auth/react"
-import styles from "../styles/Home.module.css"
+import { useUser, UserButton } from "@clerk/nextjs";
 
 export default function Profile() {
-  const { data: session } = useSession()
-  if (session) {
-	return (
-  	<div className={styles.title}>
-    	Signed in as {session.user.email} <br />
-    	<button onClick={() => signOut()}>Sign out</button>
-  	</div>
-	)
-  }
+
+  const { firstName } = useUser();
+
   return (
-	<div className={styles.title}>
-  	Not signed in <br />
-  	<button onClick={() => signIn()}>Sign in</button>
-	</div>
-  )
+  	<>
+    	<style jsx>{`
+        	.container {
+            	max-width: 65rem;
+            	margin: 1.5rem auto;
+            	padding-left: 1rem;
+            	padding-right: 1rem;
+        	}
+    	`}
+
+    	</style>
+    	<div className="container">
+        	<header>
+            	{/* Mount the UserButton component */}
+            	<UserButton />
+        	</header>
+        	<main>Hello, {firstName}!</main>
+    	</div>
+  	</>
+ 
+  );
 }
